@@ -19,21 +19,20 @@ function printQuestionMarks(num) {
     var orm = {
     // Function that returns all table entries
     selectAll: function(tableInput, cb) {
-        // Construct the query string that returns all rows from the target table
         var queryString = "SELECT * FROM " + tableInput + ";";
 
-        // Perform the database query
+        // Perform database query
         connection.query(queryString, function(err, result) {
             if (err) {
                 throw err;
             }
 
-            // Return results in callback
+            // Return results
             cb(result);
         });
     },
     insertOne: function(table, cols, vals, cb) {
-        // Construct the query string that inserts a single row into the target table
+        // Construct query string
         var queryString = "INSERT INTO " + table;
 
         queryString += " (";
@@ -43,7 +42,7 @@ function printQuestionMarks(num) {
         queryString += printQuestionMarks(vals.length);
         queryString += ") ";
 
-        // console.log(queryString);
+            console.log(queryString);
 
         // Database query
         connection.query(queryString, vals, function(err, result) {
@@ -65,9 +64,8 @@ function printQuestionMarks(num) {
 		queryString += " WHERE ";
 		queryString += condition;
 
-		// console.log(queryString);
+		    console.log(queryString);
 
-		// Database query
 		connection.query(queryString, function(err, result) {
 			if (err) {
 				throw err;
@@ -79,5 +77,5 @@ function printQuestionMarks(num) {
 	}
 };
 
-// Export the orm object for use in other modules
+// Export the orm
 module.exports = orm;
