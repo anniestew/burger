@@ -4,9 +4,18 @@
 
 <ul>
   {{#each burgers}}
-    {{#unless sleepy}}
-      {{> cats/cat-block sleep=true}}
-    {{/unless}}
+  {{#unless devoured}}
+  <li>
+    <div class="row">
+      <div class="col">
+        {{burger_name}}
+      </div>
+      <div class="col">
+        <button class="devour" data-id="{{this.id}}">Devour it!</button>
+      </div>
+    </div>
+  </li>
+  {{/unless}}
   {{/each}}
 </ul>
 
@@ -14,25 +23,27 @@
 
 <ul>
   {{#each burgers}}
-    {{#if sleepy}}
-      {{> cats/cat-block sleep=false}}
-    {{/if}}
+  {{#if devoured}}
+<li>
+    <div class="row">
+      <div class="col">
+        {{burger_name}}
+      </div>
+      <div class="col">
+        {{devoured}}
+      </div>
+    </div>
+  </li>
+  {{/if}}
+
   {{/each}}
 </ul>
 
 <h2>Add a Burger</h2>
-<form class="create-form">
 
-  <div class="form-group">
-    <label for="ca">Cat Name:</label>
-    <input type="text" id="ca" name="name">
-  </div>
+<form class="create-burger">
+    <label for="burgers">Burger Name:</label>
+    <input type="text"  id="addburger" name="name" value="">
 
-  <div class="form-group">
-    <label for="sleepy">Sleepy?</label><br>
-    <input type="radio" name="sleepy" value="1" checked> Sleepy!<br>
-    <input type="radio" name="sleepy" value="0"> Awake
-  </div>
-
-  <button type="submit">Add Burger</button>
+  <button  type="submit">Add Burger</button>
 </form>
