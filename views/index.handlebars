@@ -1,11 +1,12 @@
-<h1>Eat Da Burger!</h1>
+<div>
+  <div class = "container">
 
-{{!-- <h2>Cats that are not sleepy!</h2> --}}
+<h1><strong>Eat Da Burger!</strong></h1>
 
 <ul>
   {{#each burgers}}
   {{#unless devoured}}
-  <li>
+  <ul>
     <div class="row">
       <div class="col">
         {{burger_name}}
@@ -14,26 +15,25 @@
         <button class="devour" data-id="{{this.id}}">Devour it!</button>
       </div>
     </div>
-  </li>
+  </ul>
   {{/unless}}
   {{/each}}
 </ul>
 
-{{!-- <h2>Cats that are sleepy!</h2> --}}
-
 <ul>
   {{#each burgers}}
   {{#if devoured}}
-<li>
+<ul>
     <div class="row">
       <div class="col">
         {{burger_name}}
       </div>
+
       <div class="col">
         {{devoured}}
       </div>
     </div>
-  </li>
+  </ul>
   {{/if}}
 
   {{/each}}
@@ -47,3 +47,6 @@
 
   <button  type="submit">Add Burger</button>
 </form>
+
+  </div>
+</div>

@@ -6,23 +6,33 @@ var connection = require("../config/connection.js");
 // In order to write the query, we need 3 question marks.
 // The above helper function loops through and creates an array of question marks - ["?", "?", "?"] - and turns it into a string.
 // ["?", "?", "?"].toString() => "?,?,?";
-function printQuestionMarks(num) {
+function printQuestionMarks (num) {
+    var arr = [];
+
+    for (var i = 0; i < num; i++) {
+        arr.push("?");
+    }
+
+    return arr.toString();
+}
+function objToSql(ob) {
+    // column1=value, column2=value2,...
     var arr = [];
   
-    for (var i = 0; i < num; i++) { 
-      arr.push("?");
+    for (var key in ob) {
+      arr.push(key + "=" + ob[key]);
     }
   
     return arr.toString();
   }
 
-    var orm = {
+var orm = {
     // Function that returns all table entries
-    selectAll: function(tableInput, cb) {
+    selectAll: function (tableInput, cb) {
         var queryString = "SELECT * FROM " + tableInput + ";";
 
         // Perform database query
-        connection.query(queryString, function(err, result) {
+        connection.query(queryString, function (err, result) {
             if (err) {
                 throw err;
             }
@@ -31,7 +41,7 @@ function printQuestionMarks(num) {
             cb(result);
         });
     },
-    insertOne: function(table, cols, vals, cb) {
+    insertOne: function (table, cols, vals, cb) {
         // Construct query string
         var queryString = "INSERT INTO " + table;
 
@@ -42,10 +52,10 @@ function printQuestionMarks(num) {
         queryString += printQuestionMarks(vals.length);
         queryString += ") ";
 
-            console.log(queryString);
+        console.log(queryString);
 
         // Database query
-        connection.query(queryString, vals, function(err, result) {
+        connection.query(queryString, vals, function (err, result) {
             if (err) {
                 throw err;
             }
@@ -55,26 +65,26 @@ function printQuestionMarks(num) {
         });
     },
     // Function that updates a single table entry
-	updateOne: function(table, objColVals, condition, cb) {
-		// Construct the query string that updates a single entry in the target table
-		var queryString = "UPDATE " + table;
+    updateOne: function (table, objColVals, condition, cb) {
+        // Construct the query string that updates a single entry in the target table
+        var queryString = "UPDATE " + table;
 
-		queryString += " SET ";
-		queryString += objToSql(objColVals);
-		queryString += " WHERE ";
-		queryString += condition;
+        queryString += " SET ";
+        queryString += objToSql(objColVals);
+        queryString += " WHERE ";
+        queryString += condition;
 
-		    console.log(queryString);
+        console.log(queryString);
 
-		connection.query(queryString, function(err, result) {
-			if (err) {
-				throw err;
-			}
+        connection.query(queryString, function (err, result) {
+            if (err) {
+                throw err;
+            }
 
-			// Return results in callback
-			cb(result);
-		});
-	}
+            // Return results in callback
+            cb(result);
+        });
+    }
 };
 
 // Export the orm
