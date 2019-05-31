@@ -38,7 +38,7 @@ $(document).ready(function () {
       data: true
     }).then(function (data) {
         console.log("changed to devoured");
-        // Reload the page to get the updated list
+        
         location.reload();
       }
     );
